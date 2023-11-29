@@ -111,6 +111,8 @@ namespace OCP_After
 
 namespace Liskov
 {
+    //SOLID-in Liskov prinsipine esasen drived class base classi hemise evez ede bilmelidir.
+    //Buradada drived classlar base classin metodlarini ozlerine implement ederek evez edir.
     class Bird
     {
         public virtual void Fly()
@@ -124,7 +126,7 @@ namespace Liskov
         }
     }
 
-    // Derived class 1
+
     class Sparrow : Bird
     {
         public override void Fly()
@@ -138,7 +140,7 @@ namespace Liskov
         }
     }
 
-    // Derived class 2
+
     class Penguin : Bird
     {
         public override void Fly()
