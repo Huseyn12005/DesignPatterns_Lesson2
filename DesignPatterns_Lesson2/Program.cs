@@ -142,3 +142,111 @@ namespace Liskov
         }
     }
 }
+
+namespace ISP
+{
+    using System;
+
+    // SOLID-in I prinsipine esasen interfacein daxilindeki metodlardan biri eger implemet edilmis classlarin 
+    //birinde no Exception gotururse onda o interfacei parcalamaq lazimdi.
+
+    //Ona gore ICaDo interfaceni 2 interface-e parcaladiq.
+
+    //public interface ICanDo
+    //{
+    //    void Fly();
+    //    void Swim();
+    //}
+    public interface ICanFly
+    {
+        void Fly();
+    }
+
+    public interface ICanSwim
+    {
+        void Swim();
+    }
+
+    public class Bird : ICanFly
+    {
+        public void Fly()
+        {
+            Console.WriteLine("The bird is flying.");
+        }
+    }
+
+    public class Fish : ICanSwim
+    {
+        public void Swim()
+        {
+            Console.WriteLine("The fish is swimming.");
+        }
+    }
+
+
+    class Program
+    {
+        static void Main()
+        {
+            Bird bird = new Bird();
+            bird.Fly();
+
+            Fish fish = new Fish();
+            fish.Swim();
+
+        }
+    }
+}
+
+namespace DIP
+{
+    public interface IMessage
+    {
+        string GetMessage();
+    }
+
+    public class EmailMessage : IMessage
+    {
+        public string GetMessage()
+        {
+            return "Email message";
+        }
+    }
+
+    public class SMSMessage : IMessage
+    {
+        public string GetMessage()
+        {
+            return "SMS message";
+        }
+    }
+
+    public class Notification
+    {
+        private readonly IMessage message;
+
+        public Notification(IMessage message)
+        {
+            this.message = message;
+        }
+
+        public void SendNotification()
+        {
+            string messageContent = message.GetMessage();
+            Console.WriteLine($"Notification: {messageContent}");
+        }
+    }
+    class Program
+    {
+        static void Main()
+        {
+            IMessage emailMessage = new EmailMessage();
+            Notification emailNotification = new Notification(emailMessage);
+            emailNotification.SendNotification();
+
+            IMessage smsMessage = new SMSMessage();
+            Notification smsNotification = new Notification(smsMessage);
+            smsNotification.SendNotification();
+        }
+    }
+}
