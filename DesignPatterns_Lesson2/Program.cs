@@ -1,5 +1,7 @@
 ﻿namespace SRP_Before
 {
+    //SOLID-in S principle-e esasen bir class ozune xass yalniz bir is gore biler.Lakin burada olan Customer classi
+    //ozune xass olmayan SendEmailNotification methodu isledib.(Novbeti namespace baxin)
     public class Customer
     {
         public string Name { get; set; }
@@ -21,6 +23,7 @@
 
 namespace SRP_After
 {
+    //Burda SendEmailNotification metoduna xas EmailSender metodu yaradilmisdir.Artiq her bir class yalniz ozune xas is gorur.
     public class Customer
     {
         public string Name { get; set; }
@@ -47,6 +50,9 @@ namespace SRP_After
 
 namespace OCP_Before
 {
+    //SOLID-in O principine esasen bir class yeniliklere aciq amma deyiskliklere hemise qapali olmalidir.
+    //Lakin biz elave eManat odenis usulunu getirsek gerek PaymentProcessor classinde deyisiklikler edek
+    //ve bu Open Closed prisipine ziddir.(Novbeti namespace baxin)
     public class PaymentProcessor
     {
         public void ProcessPayment(string paymentMethod, double amount)
@@ -69,6 +75,10 @@ namespace OCP_Before
 
 namespace OCP_After
 {
+
+    //Bu prinsipe riayet etmek ucun ortaq abstraction olan IPaymentProcessor yaradiriq.
+    //ve PaymentProcessor daxilinde hamsina ortaq olan ProcessPayment metodunu cagiririq.
+    //Bunnan sonra elave odenis usulu elave etsek onu interfaceden implement ederek classda hec bir deyisiklik etmeyeciyik.
     public interface IPaymentProcessor
     {
         void ProcessPayment(double amount);
@@ -200,6 +210,10 @@ namespace ISP
 
 namespace DIP
 {
+    //SOLID-in D principine esasen high-level classlar low-level classlardan asili olmamalidir.
+    //Ikiside abstractiondan asili olmalidir.Burdada butun mesajlara ortaq IMessage interfacesi yaradilib
+    //ve EmailMessage ile SMSMessage ondan implement edilib.Ve Notification icinde istifade edilir.
+    //Bunnan sonra biz low level classlardan istenileni sildikden sonra high-level class hec bir tesiri olmur.
     public interface IMessage
     {
         string GetMessage();
